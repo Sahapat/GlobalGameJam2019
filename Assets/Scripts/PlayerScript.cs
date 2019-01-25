@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField] Vector2 runVelocity = Vector2.zero;
+    [SerializeField] float runVelocity = 5f;
 
     bool isFirstInput = false;
     bool isSecondInput = false;
 
+    private Rigidbody2D m_rigidbody2D = null;
+
+    void Awake()
+    {
+        m_rigidbody2D = GetComponent<Rigidbody2D>();
+    }
     void Update()
     {
         GetInput();
@@ -20,7 +26,6 @@ public class PlayerScript : MonoBehaviour
         GameCore.m_UIHandler.UpdateTouch1Status(isFirstInput.ToString());
         GameCore.m_UIHandler.UpdateTouch2Status(isSecondInput.ToString());
         #endregion
-
         if(isFirstInput)
         {
             MovingCharacter();
@@ -78,10 +83,10 @@ public class PlayerScript : MonoBehaviour
     }
     void MovingCharacter()
     {
-        
+        m_rigidbody2D.velocity = new Vector2(runVelocity,m_rigidbody2D.velocity.y);
     }
     void SpecialAction()
     {
-
+        GameCore.m_obtacleController.Switching();
     }
 }
