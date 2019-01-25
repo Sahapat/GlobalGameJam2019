@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]Transform targetPlayer = null;
+    [SerializeField]Vector2 movingScale = new Vector2(1,1);
+    
+    void LateUpdate()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        var CharacterToViewPort = Camera.main.WorldToViewportPoint(targetPlayer.position);
+        if(CharacterToViewPort.x > 0.5f)
+        {
+            transform.Translate(movingScale*Time.deltaTime);
+        }
     }
 }

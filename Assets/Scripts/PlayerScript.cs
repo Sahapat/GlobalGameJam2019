@@ -10,14 +10,19 @@ public class PlayerScript : MonoBehaviour
     bool isSecondInput = false;
 
     private Rigidbody2D m_rigidbody2D = null;
-
+    private PlayerPhysicshandler m_playerPhysicshanlder = null;
+    private Animator m_animator = null;
+    SpriteMask temp;
     void Awake()
     {
+        m_playerPhysicshanlder = GetComponent<PlayerPhysicshandler>();
         m_rigidbody2D = GetComponent<Rigidbody2D>();
+        m_animator = GetComponentInChildren<Animator>();
     }
     void Update()
     {
         GetInput();
+        AnimationStateController();
     }
 
     void FixedUpdate()
@@ -26,12 +31,12 @@ public class PlayerScript : MonoBehaviour
         GameCore.m_UIHandler.UpdateTouch1Status(isFirstInput.ToString());
         GameCore.m_UIHandler.UpdateTouch2Status(isSecondInput.ToString());
         #endregion
-        if(isFirstInput)
+        if (isFirstInput)
         {
             MovingCharacter();
         }
 
-        if(isSecondInput)
+        if (isSecondInput)
         {
             SpecialAction();
         }
@@ -40,14 +45,14 @@ public class PlayerScript : MonoBehaviour
     {
         isFirstInput = false;
         isSecondInput = false;
-        if(GameCore.m_Main.isTargetPC)
+        if (GameCore.m_Main.isTargetPC)
         {
-            if(Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0))
             {
                 isFirstInput = true;
             }
 
-            if(Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1))
             {
                 isSecondInput = true;
             }
@@ -55,38 +60,44 @@ public class PlayerScript : MonoBehaviour
         else
         {
             var touches = Input.touches;
-            if(touches.Length > 0)
+            if (touches.Length > 0)
             {
                 isFirstInput = true;
 
-                if(touches.Length > 1 && touches[1].phase == TouchPhase.Began)
+                if (touches.Length > 1 && touches[1].phase == TouchPhase.Began)
                 {
                     isSecondInput = true;
                 }
             }
-            
+
         }
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         {
-            if(Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0))
             {
                 isFirstInput = true;
             }
 
-            if(Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1))
             {
                 isSecondInput = true;
             }
         }
-        #endif
+#endif
     }
     void MovingCharacter()
     {
-        m_rigidbody2D.velocity = new Vector2(runVelocity,m_rigidbody2D.velocity.y);
+        if(!m_playerPhysicshanlder.isTocuhingFloor)return;
+        m_rigidbody2D.velocity = new Vector2(runVelocity, m_rigidbody2D.velocity.y);
     }
     void SpecialAction()
     {
         GameCore.m_obtacleController.Switching();
+    }
+    void AnimationStateController()
+    {
+        m_animator.SetBool("TouchingFloor",m_playerPhysicshanlder.isTocuhingFloor);
+        m_animator.SetBool("Walking",isFirstInput);
     }
 }
