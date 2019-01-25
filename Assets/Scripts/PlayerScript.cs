@@ -16,7 +16,20 @@ public class PlayerScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+        #region TestInput
+        GameCore.m_UIHandler.UpdateTouch1Status(isFirstInput.ToString());
+        GameCore.m_UIHandler.UpdateTouch2Status(isSecondInput.ToString());
+        #endregion
+
+        if(isFirstInput)
+        {
+            MovingCharacter();
+        }
+
+        if(isSecondInput)
+        {
+            SpecialAction();
+        }
     }
     void GetInput()
     {
@@ -29,7 +42,7 @@ public class PlayerScript : MonoBehaviour
                 isFirstInput = true;
             }
 
-            if(Input.GetMouseButton(1))
+            if(Input.GetMouseButtonDown(1))
             {
                 isSecondInput = true;
             }
@@ -41,7 +54,7 @@ public class PlayerScript : MonoBehaviour
             {
                 isFirstInput = true;
 
-                if(touches.Length > 1)
+                if(touches.Length > 1 && touches[1].phase == TouchPhase.Began)
                 {
                     isSecondInput = true;
                 }
@@ -56,11 +69,19 @@ public class PlayerScript : MonoBehaviour
                 isFirstInput = true;
             }
 
-            if(Input.GetMouseButton(1))
+            if(Input.GetMouseButtonDown(1))
             {
                 isSecondInput = true;
             }
         }
         #endif
+    }
+    void MovingCharacter()
+    {
+        
+    }
+    void SpecialAction()
+    {
+
     }
 }
