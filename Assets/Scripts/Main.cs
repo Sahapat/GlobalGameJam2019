@@ -8,6 +8,8 @@ public class GameCore
     public static CameraController m_CameraController;
     public static UIHandler m_UIHandler;
     public static ObtacleController m_obtacleController;
+    public static GameController m_gamecontroller;
+    public static GameObject Zabi_obj;
 }
 public class Main : MonoBehaviour
 {
@@ -25,6 +27,8 @@ public class Main : MonoBehaviour
         GameCore.m_Main = this;
         GameCore.m_UIHandler = GetComponent<UIHandler>();
         GameCore.m_obtacleController = GetComponent<ObtacleController>();
+        GameCore.m_gamecontroller = GetComponent<GameController>();
+        GameCore.Zabi_obj = GameObject.FindGameObjectWithTag("Player");
         #if UNITY_IOS || UNITY_ANDROID
         {
             isTargetPC = false;

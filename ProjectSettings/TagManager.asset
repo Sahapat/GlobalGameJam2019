@@ -15,8 +15,8 @@ TagManager:
   - 
   - 
   - Floor
-  - Character
-  - 
+  - Zabi
+  - Enemy
   - 
   - 
   - 
@@ -48,6 +48,12 @@ TagManager:
   - name: Enviroutment
     uniqueID: 3440350543
     locked: 0
-  - name: Character
+  - name: Zabi
     uniqueID: 3560562235
+    locked: 0
+  - name: Enemy
+    uniqueID: 720469207
+    locked: 0
+  - name: Water
+    uniqueID: 1691690623
     locked: 0
