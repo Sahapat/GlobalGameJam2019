@@ -71,6 +71,7 @@ public class GameController : MonoBehaviour
     }
     private IEnumerator DoPass(GameObject targetObject, Vector3 destination)
     {
+        targetObject.GetComponent<Rigidbody2D>().simulated = false;
         while (Vector3.Distance(targetObject.transform.position, destination) != 0)
         {
             targetObject.transform.position = Vector3.MoveTowards(targetObject.transform.position, destination, relativeTimeToPass);

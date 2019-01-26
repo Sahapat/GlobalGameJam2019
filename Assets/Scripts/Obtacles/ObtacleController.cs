@@ -5,22 +5,30 @@ using UnityEngine;
 public class ObtacleController : MonoBehaviour
 {
     SwitchingObtacle[] m_switchingObtacles = null;
-    Bobby[] m_Bobbys= null;
-    
+    MovingPlatform[] m_movingPlatform = null;
+
+    bool canControlMovingPlatform = false;
     void Awake()
     {
         m_switchingObtacles = FindObjectsOfType<SwitchingObtacle>();
-        m_Bobbys = FindObjectsOfType<Bobby>();
+        m_movingPlatform = FindObjectsOfType<MovingPlatform>();
     }
     public void Switching()
     {
-        for(int i = 0;i<m_switchingObtacles.Length;i++)
+        for (int i = 0; i < m_switchingObtacles.Length; i++)
         {
             m_switchingObtacles[i].SwitchObtacle();
         }
-        for(int i=0;i<m_Bobbys.Length;i++)
+        if (canControlMovingPlatform)
         {
-            m_Bobbys[i].SwitchState();
+            for (int i = 0; i < m_movingPlatform.Length; i++)
+            {
+                m_movingPlatform[i].SwitchActive();
+            }
         }
+    }
+    public void SetControlableMovingPlatform()
+    {
+        canControlMovingPlatform = true;
     }
 }

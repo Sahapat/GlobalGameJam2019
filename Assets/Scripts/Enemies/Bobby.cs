@@ -2,25 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bobby : MonoBehaviour
+public class Bobby : MovingObtacle
 {
-    [SerializeField] Vector2 firstPosition = Vector2.zero;
-    [SerializeField] Vector2 secondPosition = Vector2.zero;
-    [SerializeField] float movingSpeed = 3f;
-    [SerializeField] bool moveDirection = false;
-
     private BoxCollider2D m_boxColider2d = null;
-    private bool isStopMoving = false;
     void Awake()
     {
         m_boxColider2d = GetComponent<BoxCollider2D>();
-    }
-    void FixedUpdate()
-    {
-        PlayerChecker();
-        if (GameCore.m_gamecontroller.isGameOver) return;
-        if (isStopMoving)return;
-        MovingBobby();
     }
     void PlayerChecker()
     {
@@ -32,28 +19,12 @@ public class Bobby : MonoBehaviour
             GameCore.m_gamecontroller.GameOver(1);
         }
     }
-    void MovingBobby()
+    protected override void OnFixedUpdate()
     {
-        if (moveDirection)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, firstPosition, Time.deltaTime * movingSpeed);
-            if (transform.position.x == firstPosition.x && transform.position.y == firstPosition.y)
-            {
-                moveDirection = false;
-            }
-        }
-        else
-        {
-            transform.position = Vector2.MoveTowards(transform.position, secondPosition, Time.deltaTime * movingSpeed);
-            if (transform.position.x == secondPosition.x && transform.position.y == secondPosition.y)
-            {
-                moveDirection = true;
-            }
-        }
+        PlayerChecker();
     }
-    public void SwitchState()
+    protected override void OnStopMoving()
     {
-        isStopMoving = !isStopMoving;
-        moveDirection = !moveDirection;
+        isStopMoving = false;
     }
 }

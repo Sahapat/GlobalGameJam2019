@@ -12,7 +12,7 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody2D m_rigidbody2D = null;
     private PlayerPhysicshandler m_playerPhysicshanlder = null;
     private Animator m_animator = null;
-    SpriteMask temp;
+    private bool isOnPlatform = false;
     void Awake()
     {
         m_playerPhysicshanlder = GetComponent<PlayerPhysicshandler>();
@@ -111,7 +111,9 @@ public class PlayerScript : MonoBehaviour
     void MovingCharacter()
     {
         if(!m_playerPhysicshanlder.isTocuhingFloor)return;
-        m_rigidbody2D.velocity = new Vector2(runVelocity, m_rigidbody2D.velocity.y);
+        if(isOnPlatform)return;
+        var assignRun = (m_playerPhysicshanlder.isOnSlope)?runVelocity*1.8f:runVelocity;
+        m_rigidbody2D.velocity = new Vector2(assignRun, m_rigidbody2D.velocity.y);
     }
     void SpecialAction()
     {
@@ -138,5 +140,18 @@ public class PlayerScript : MonoBehaviour
         isFirstInput = false;
         isSecondInput = false;
         this.enabled = false;
+    }
+    public void SetSwitchPlatform(Transform t_in)
+    {
+        if(isOnPlatform)
+        {
+            this.transform.parent = null;
+            isOnPlatform = false;
+        }
+        else
+        {
+            transform.parent = t_in.transform;
+            isOnPlatform =true;
+        }
     }
 }

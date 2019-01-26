@@ -10,12 +10,15 @@ public class PlayerPhysicshandler : MonoBehaviour
     [SerializeField]float onGroundDrag = 5f;
     private BoxCollider2D m_colider2D = null;
     private Rigidbody2D m_rigidbody2D = null;
-
+    
     public bool isTocuhingFloor
     {
         get; private set;
     }
-
+    public bool isOnSlope
+    {
+        get; private set;
+    }
     void Awake()
     {
         m_colider2D = GetComponent<BoxCollider2D>();
@@ -31,6 +34,18 @@ public class PlayerPhysicshandler : MonoBehaviour
             Physics2D.gravity = onGroundGravity;
             m_rigidbody2D.drag = onGroundDrag;
             isTocuhingFloor = true;
+            switch(hit.tag)
+            {
+                case "Slope":
+                isOnSlope = true;
+                break;
+                case "DiePos":
+                GameCore.m_gamecontroller.GameOver(1);
+                break;
+                default:
+                isOnSlope = false;
+                break;
+            }
         }
         else
         {

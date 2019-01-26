@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SwitchingObtacle : MonoBehaviour
 {
+    [SerializeField]bool startStatus = false;
     private SpriteRenderer m_spriteRenderer;
     private EdgeCollider2D m_edgeColider2D;
 
@@ -11,6 +12,13 @@ public class SwitchingObtacle : MonoBehaviour
     {
         m_spriteRenderer = GetComponent<SpriteRenderer>();
         m_edgeColider2D = GetComponent<EdgeCollider2D>();
+    }
+    void Start()
+    {
+        if(!startStatus)
+        {
+            SwitchObtacle();
+        }
     }
     public virtual void SwitchObtacle()
     {
