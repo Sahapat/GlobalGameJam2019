@@ -12,7 +12,7 @@ public class SwitchingObtacle : MonoBehaviour
         m_spriteRenderer = GetComponent<SpriteRenderer>();
         m_edgeColider2D = GetComponent<EdgeCollider2D>();
     }
-    public void SwitchObtacle()
+    public virtual void SwitchObtacle()
     {
         m_edgeColider2D.enabled = !m_edgeColider2D.enabled;
 

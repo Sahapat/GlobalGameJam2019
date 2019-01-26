@@ -10,7 +10,7 @@ public class Bobby : MonoBehaviour
     [SerializeField] bool moveDirection = false;
 
     private BoxCollider2D m_boxColider2d = null;
-
+    private bool isStopMoving = false;
     void Awake()
     {
         m_boxColider2d = GetComponent<BoxCollider2D>();
@@ -19,6 +19,7 @@ public class Bobby : MonoBehaviour
     {
         PlayerChecker();
         if (GameCore.m_gamecontroller.isGameOver) return;
+        if (isStopMoving)return;
         MovingBobby();
     }
     void PlayerChecker()
@@ -28,7 +29,7 @@ public class Bobby : MonoBehaviour
 
         if (hitInfo)
         {
-            GameCore.m_gamecontroller.GameOver();
+            GameCore.m_gamecontroller.GameOver(1);
         }
     }
     void MovingBobby()
@@ -49,5 +50,10 @@ public class Bobby : MonoBehaviour
                 moveDirection = true;
             }
         }
+    }
+    public void SwitchState()
+    {
+        isStopMoving = !isStopMoving;
+        moveDirection = !moveDirection;
     }
 }

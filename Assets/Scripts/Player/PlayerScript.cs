@@ -37,10 +37,6 @@ public class PlayerScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        #region TestInput
-        GameCore.m_UIHandler.UpdateTouch1Status(isFirstInput.ToString());
-        GameCore.m_UIHandler.UpdateTouch2Status(isSecondInput.ToString());
-        #endregion
         if (isFirstInput)
         {
             MovingCharacter();
@@ -107,6 +103,10 @@ public class PlayerScript : MonoBehaviour
             }
         }
 #endif
+            if(GameCore.m_gamecontroller.isGameStart && !isFirstInput && !isSecondInput)
+            {
+                GameCore.m_gamecontroller.GameOver(0);
+            }
     }
     void MovingCharacter()
     {

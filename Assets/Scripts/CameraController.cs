@@ -7,11 +7,12 @@ public class CameraController : MonoBehaviour
     [SerializeField]Vector2 movingScale = new Vector2(1,1);
     [SerializeField]Vector2 maxPosition = Vector2.zero;
     [SerializeField]float stopSpeed = 3f;
+    [SerializeField]bool clampMax = false;
     void LateUpdate()
     {
         var CharacterToViewPort = Camera.main.WorldToViewportPoint(GameCore.Zabi_obj.transform.position);
         var lenghtToMaxPos = Mathf.Max(transform.position.x-maxPosition.x,transform.position.y-maxPosition.y);
-        if(lenghtToMaxPos > -0.5f)
+        if(lenghtToMaxPos > -0.5f&&clampMax)
         {
             transform.position = Vector3.Lerp(transform.position,new Vector3(maxPosition.x,maxPosition.y,transform.position.z),Time.deltaTime*stopSpeed);
             return;
