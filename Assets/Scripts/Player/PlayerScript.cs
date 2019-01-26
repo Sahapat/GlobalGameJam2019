@@ -59,6 +59,10 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
+                if(!GameCore.m_gamecontroller.isGameStart)
+                {
+                    GameCore.m_gamecontroller.GameStart();
+                }
                 isFirstInput = true;
             }
 
@@ -72,6 +76,10 @@ public class PlayerScript : MonoBehaviour
             var touches = Input.touches;
             if (touches.Length > 0)
             {
+                if(touches[0].phase == TouchPhase.Began && !GameCore.m_gamecontroller.isGameStart)
+                {
+                    GameCore.m_gamecontroller.GameStart();
+                }
                 isFirstInput = true;
 
                 if (touches.Length > 1 && touches[1].phase == TouchPhase.Began)
@@ -86,6 +94,10 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
+                if(!GameCore.m_gamecontroller.isGameStart)
+                {
+                    GameCore.m_gamecontroller.GameStart();
+                }
                 isFirstInput = true;
             }
 

@@ -13,6 +13,11 @@ public class Melvin : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if(GameCore.m_gamecontroller.isGameOver || GameCore.m_gamecontroller.isGamePass)
+        {
+            m_rigidbody2D.simulated = false;
+            return;
+        }
         DoMoving();
     }
     void DoMoving()
