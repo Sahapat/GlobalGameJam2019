@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField] GameObject melvinPrefab = null;
+    [SerializeField] Transform melvinSpawnPoint = null;
     [SerializeField] GameObject PassChecker = null;
     [SerializeField] Transform passDestination = null;
     [SerializeField] float relativeTimeToPass = 0.2f;
@@ -40,6 +42,7 @@ public class GameController : MonoBehaviour
     public void GameStart()
     {
         isGameStart =true;
+        Instantiate(melvinPrefab,melvinSpawnPoint.position,Quaternion.identity);
     }
     public void GameOver()
     {
