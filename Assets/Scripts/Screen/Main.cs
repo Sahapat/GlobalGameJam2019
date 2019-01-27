@@ -44,7 +44,6 @@ public class Main : MonoBehaviour
 #else
         {
             isTargetPC = true;
-            Cursor.visible = false;
         }
 #endif
     }
