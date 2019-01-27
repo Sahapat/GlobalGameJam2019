@@ -55,9 +55,30 @@ public class GameController : MonoBehaviour
             case 0:
                 if (!overTrigger)
                 {
+                    overTrigger =true;
+                    var levelToSave = "Level" + GameCore.m_Main.currentLevel;
+                    PlayerPrefs.SetInt(levelToSave, GameCore.m_Main.deltaTimePass * 3);
+                    PlayerPrefs.SetInt(levelToSave+"Pass",0);
+                    GameCore.m_audioController.PlayOtherSound(0);
+                    GameCore.m_audioController.PlayThemeSound(1);
+                    Invoke("PlayExtraLose",0.3f);
+                    GameCore.m_UIHandler.ShowLose();
                     m_melvin.MoveToZabi();
                 }
                 break;
+            case 1:
+                if (!overTrigger)
+                {
+                    overTrigger =true;
+                    var levelToSave = "Level" + GameCore.m_Main.currentLevel;
+                    PlayerPrefs.SetInt(levelToSave, GameCore.m_Main.deltaTimePass * 3);
+                    PlayerPrefs.SetInt(levelToSave+"Pass",0);
+                    GameCore.m_audioController.PlayOtherSound(0);
+                    GameCore.m_audioController.PlayThemeSound(1);
+                    Invoke("PlayExtraLose",0.3f);
+                    GameCore.m_UIHandler.ShowLose();
+                }
+            break;
         }
     }
     public void GamePass()
@@ -65,6 +86,12 @@ public class GameController : MonoBehaviour
         isGamePass = true;
         if (!passTrigger)
         {
+            var levelToSave = "Level" + GameCore.m_Main.currentLevel;
+            PlayerPrefs.SetInt(levelToSave, GameCore.m_Main.deltaTimePass * 3);
+            PlayerPrefs.SetInt(levelToSave+"Pass",1);
+            GameCore.m_audioController.PlayThemeSound(1);
+            GameCore.m_audioController.PlayOtherSound(1);
+            GameCore.m_UIHandler.ShowPass();
             StartCoroutine(DoPass(GameCore.Zabi_obj, passDestination.position));
             passTrigger = true;
         }
@@ -78,5 +105,9 @@ public class GameController : MonoBehaviour
             targetObject.transform.localScale = Vector3.MoveTowards(targetObject.transform.localScale, Vector3.zero, Time.deltaTime);
             yield return null;
         }
+    }
+    private void PlayExtraLose()
+    {
+        GameCore.m_audioController.PlayExtraSound(2);
     }
 }

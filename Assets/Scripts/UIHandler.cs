@@ -6,11 +6,31 @@ public class UIHandler : MonoBehaviour
 {
 
     [SerializeField] Image fadeImage = null;
+    [SerializeField] GameObject PassObj = null;
+    [SerializeField] GameObject PassScoreboard = null;
+    [SerializeField] GameObject LoseObj = null;
+    [SerializeField] GameObject LoseScoreboard = null;
     void Awake()
     {
         StartCoroutine(FadeIn());
     }
-
+    void Update()
+    {
+        if(PassObj.activeSelf)
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                PassScoreboard.SetActive(true);
+            }
+        }
+        if(LoseObj.activeSelf)
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                LoseScoreboard.SetActive(true);
+            }
+        }
+    }
     private IEnumerator FadeIn()
     {
         fadeImage.color = new Color(0,0,0,1);
@@ -40,5 +60,13 @@ public class UIHandler : MonoBehaviour
     {
         StopAllCoroutines();
         StartCoroutine(FadeOut());
+    }
+    public void ShowPass()
+    {
+        PassObj.SetActive(true);
+    }
+    public void ShowLose()
+    {
+        LoseObj.SetActive(true);
     }
 }

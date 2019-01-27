@@ -65,7 +65,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3965e36567e41514ea623c9b6074598e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showOption: {fileID: 0}
   delayBeforeLoad: 0.75
+  currentLevel: 0
 --- !u!114 &8195302797117940602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,7 +80,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4afc5778c02e676418fd491d2c6811a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_switchingObtacles: []
 --- !u!114 &8195302797117940545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +93,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 0}
+  PassObj: {fileID: 0}
+  PassScoreboard: {fileID: 0}
+  LoseObj: {fileID: 0}
+  LoseScoreboard: {fileID: 0}
 --- !u!114 &8195302797117940549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,5 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a0b50e7380a12e41a664c533a51a4e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeSounds: []
-  otherSounds: []
+  themeSounds:
+  - {fileID: 8300000, guid: 52c0e40c73f0cc14ba3908a1a731169e, type: 3}
+  - {fileID: 8300000, guid: e659d53ad3306fd41b3f60e987ab4f9e, type: 3}
+  otherSounds:
+  - {fileID: 8300000, guid: 4700bbffe3cea7b48ae60c287cf841d1, type: 3}
+  - {fileID: 8300000, guid: 820e3ffb5660cad48bfe7467e397fc26, type: 3}
+  - {fileID: 8300000, guid: cd6768dd20ca1ba41b3c2c645f7970d5, type: 3}
